@@ -10,10 +10,14 @@ config_version=5
 
 [application]
 
-config/name="2 player snake"
+config/name="2-player-snake"
 run/main_scene="uid://cjsf727dnfrc5"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+SceneManager="*uid://c4ndqcypojg07"
 
 [display]
 
