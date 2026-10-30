@@ -94,20 +94,19 @@ expand_mode = 1
 [node name="left eye" type="TextureRect" parent="environment/player 1/head" unique_id=1333392623]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
-offset_left = 54.0
-offset_top = -6.0
-offset_right = 69.0
-offset_bottom = 9.0
+offset_left = 49.0
+offset_right = 64.0
+offset_bottom = 15.0
 texture = ExtResource("4_jyhfs")
 expand_mode = 1
 
 [node name="right eye" type="TextureRect" parent="environment/player 1/head" unique_id=844015305]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
-offset_left = 56.0
-offset_top = 56.0
-offset_right = 71.0
-offset_bottom = 71.0
+offset_left = 49.0
+offset_top = 49.0
+offset_right = 64.0
+offset_bottom = 64.0
 texture = ExtResource("4_jyhfs")
 expand_mode = 1
 
@@ -157,20 +156,19 @@ expand_mode = 1
 [node name="left eye" type="TextureRect" parent="environment/player 2/head" unique_id=557877342]
 modulate = Color(0.25490198, 0.4117647, 0.88235295, 1)
 layout_mode = 1
-offset_left = 54.0
-offset_top = -6.0
-offset_right = 69.0
-offset_bottom = 9.0
+offset_left = 49.0
+offset_right = 64.0
+offset_bottom = 15.0
 texture = ExtResource("4_jyhfs")
 expand_mode = 1
 
 [node name="right eye" type="TextureRect" parent="environment/player 2/head" unique_id=1254011268]
 modulate = Color(0.25490198, 0.4117647, 0.88235295, 1)
 layout_mode = 1
-offset_left = 56.0
-offset_top = 56.0
-offset_right = 71.0
-offset_bottom = 71.0
+offset_left = 49.0
+offset_top = 49.0
+offset_right = 64.0
+offset_bottom = 64.0
 texture = ExtResource("4_jyhfs")
 expand_mode = 1
 

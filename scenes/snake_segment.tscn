@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cplc8euq4tkis"]
+
+[ext_resource type="Texture2D" uid="uid://snrdff40dure" path="res://assets/white_square.png" id="1_1sg3p"]
+[ext_resource type="Script" uid="uid://na200ow7m35a" path="res://scenes/snake_segment.gd" id="1_h8cp3"]
+
+[node name="segment" type="Node2D" unique_id=382759185 node_paths=PackedStringArray("visual")]
+script = ExtResource("1_h8cp3")
+visual = NodePath("visual")
+
+[node name="visual" type="TextureRect" parent="." unique_id=1691935192]
+modulate = Color(0.25490198, 0.4117647, 0.88235295, 1)
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("1_1sg3p")
+expand_mode = 1

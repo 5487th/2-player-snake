@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://kq5eje74r5bi"]
 
 [ext_resource type="Texture2D" uid="uid://bcwhy811156gc" path="res://assets/tile.png" id="1_s3esy"]
+[ext_resource type="PackedScene" uid="uid://dbs45p62gdeva" path="res://scenes/snake.tscn" id="2_72e8q"]
 
 [node name="main game" type="Node2D" unique_id=836188242]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=558591453]
+layer = -1
 
 [node name="background" type="TextureRect" parent="CanvasLayer" unique_id=1842724923]
 z_index = -2
@@ -15,3 +17,33 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_s3esy")
 stretch_mode = 1
+
+[node name="world boundary" type="Node2D" parent="." unique_id=56874069]
+
+[node name="top boundary" type="Node2D" parent="world boundary" unique_id=413176132]
+position = Vector2(960, 0)
+
+[node name="bottom boundary" type="Node2D" parent="world boundary" unique_id=461954058]
+position = Vector2(960, 1024)
+
+[node name="left boundary" type="Node2D" parent="world boundary" unique_id=1872332912]
+position = Vector2(0, 512)
+
+[node name="right boundary" type="Node2D" parent="world boundary" unique_id=1823225464]
+position = Vector2(1920, 512)
+
+[node name="snake" parent="." unique_id=36021643 node_paths=PackedStringArray("top_boundary", "bottom_boundary", "left_boundary", "right_boundary") instance=ExtResource("2_72e8q")]
+position = Vector2(640, 640)
+top_boundary = NodePath("../world boundary/top boundary")
+bottom_boundary = NodePath("../world boundary/bottom boundary")
+left_boundary = NodePath("../world boundary/left boundary")
+right_boundary = NodePath("../world boundary/right boundary")
+
+[node name="snake2" parent="." unique_id=965643502 node_paths=PackedStringArray("top_boundary", "bottom_boundary", "left_boundary", "right_boundary") instance=ExtResource("2_72e8q")]
+position = Vector2(1280, 384)
+rotation = 3.1415927
+player_number = 1
+top_boundary = NodePath("../world boundary/top boundary")
+bottom_boundary = NodePath("../world boundary/bottom boundary")
+left_boundary = NodePath("../world boundary/left boundary")
+right_boundary = NodePath("../world boundary/right boundary")
