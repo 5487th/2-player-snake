@@ -2,18 +2,24 @@ extends CanvasLayer
 
 @export var player_1_wins_display:Control
 @export var player_2_wins_display:Control
+@export var draw_display:Control
 
 @export var replay_button:Button
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if GameSceneToReplayScreenData.winner_snake == Snake.PlayerNumber.PLAYER1:
+	if GameSceneToReplayScreenData.winner_snake == GameSceneToReplayScreenData.Winner.SNAKE_1:
 		player_1_wins_display.visible = true
 		player_2_wins_display.visible=false
-		
-	elif GameSceneToReplayScreenData.winner_snake == Snake.PlayerNumber.PLAYER2:
+		draw_display.visible=false
+	elif GameSceneToReplayScreenData.winner_snake == GameSceneToReplayScreenData.Winner.SNAKE_2:
 		player_1_wins_display.visible = false
 		player_2_wins_display.visible = true
+		draw_display.visible=false
+	elif GameSceneToReplayScreenData.winner_snake == GameSceneToReplayScreenData.Winner.DRAW:
+		player_1_wins_display.visible = false
+		player_2_wins_display.visible = false
+		draw_display.visible=true
 	
 	replay_button.pressed.connect(on_replay_pressed)
 	

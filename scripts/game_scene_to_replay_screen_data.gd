@@ -1,3 +1,9 @@
 extends Node
 
-var winner_snake : Snake.PlayerNumber = Snake.PlayerNumber.PLAYER1
+enum Winner{
+	SNAKE_1,
+	SNAKE_2,
+	DRAW
+}
+
+var winner_snake : Winner = Winner.DRAW

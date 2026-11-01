@@ -19,10 +19,11 @@ bg_color = Color(0.8864554, 0, 0.0133170085, 1)
 font = ExtResource("3_roxso")
 font_size = 96
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=1703937666 node_paths=PackedStringArray("player_1_wins_display", "player_2_wins_display", "replay_button")]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1703937666 node_paths=PackedStringArray("player_1_wins_display", "player_2_wins_display", "draw_display", "replay_button")]
 script = ExtResource("1_fgr7c")
 player_1_wins_display = NodePath("player 1 wins display")
 player_2_wins_display = NodePath("player 2 wins display")
+draw_display = NodePath("draw display")
 replay_button = NodePath("play again")
 
 [node name="background" type="TextureRect" parent="." unique_id=1505957438]
@@ -50,6 +51,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="player 1 wins display" type="Control" parent="." unique_id=1392570678]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -67,6 +69,7 @@ offset_bottom = 270.0
 grow_horizontal = 2
 text = "Snake 1 wins"
 label_settings = SubResource("LabelSettings_rgl7y")
+horizontal_alignment = 1
 
 [node name="apple" type="TextureRect" parent="player 1 wins display" unique_id=215179669]
 layout_mode = 1
@@ -157,7 +160,6 @@ texture = ExtResource("5_wugxt")
 expand_mode = 1
 
 [node name="player 2 wins display" type="Control" parent="." unique_id=672270260]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -175,6 +177,7 @@ offset_bottom = 270.0
 grow_horizontal = 2
 text = "Snake 2 wins"
 label_settings = SubResource("LabelSettings_rgl7y")
+horizontal_alignment = 1
 
 [node name="player 1" type="Control" parent="player 2 wins display" unique_id=286167558]
 anchors_preset = 0
@@ -263,3 +266,183 @@ grow_vertical = 2
 scale = Vector2(3, 3)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = ExtResource("4_43ogv")
+
+[node name="draw display" type="Control" parent="." unique_id=38462224]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="winnder display" type="Label" parent="draw display" unique_id=780251184]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 374.0
+offset_top = 114.0
+offset_right = 1490.0
+offset_bottom = 270.0
+grow_horizontal = 2
+text = "its a tie!"
+label_settings = SubResource("LabelSettings_rgl7y")
+horizontal_alignment = 1
+
+[node name="player 1" type="Control" parent="draw display" unique_id=367030451]
+anchors_preset = 0
+offset_left = 512.0
+offset_top = 448.00003
+offset_right = 552.0
+offset_bottom = 488.00003
+scale = Vector2(3, 3)
+
+[node name="head" type="TextureRect" parent="draw display/player 1" unique_id=760734559]
+modulate = Color(0.25490198, 0.4117647, 0.88235295, 1)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("5_wugxt")
+expand_mode = 1
+
+[node name="left eye" type="TextureRect" parent="draw display/player 1/head" unique_id=730212774]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+offset_left = 49.0
+offset_right = 64.0
+offset_bottom = 15.0
+texture = ExtResource("5_wugxt")
+expand_mode = 1
+
+[node name="right eye" type="TextureRect" parent="draw display/player 1/head" unique_id=729294990]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+offset_left = 49.0
+offset_top = 49.0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("5_wugxt")
+expand_mode = 1
+
+[node name="body 1" type="TextureRect" parent="draw display/player 1" unique_id=239325837]
+modulate = Color(0.25490198, 0.4117647, 0.88235295, 1)
+layout_mode = 0
+offset_left = -64.0
+offset_bottom = 64.0
+texture = ExtResource("5_wugxt")
+expand_mode = 1
+
+[node name="body 2" type="TextureRect" parent="draw display/player 1" unique_id=1883035825]
+modulate = Color(0.25490198, 0.4117647, 0.88235295, 1)
+layout_mode = 0
+offset_left = -128.0
+offset_right = -64.0
+offset_bottom = 64.0
+texture = ExtResource("5_wugxt")
+expand_mode = 1
+
+[node name="body 3" type="TextureRect" parent="draw display/player 1" unique_id=308415984]
+modulate = Color(0.25490198, 0.4117647, 0.88235295, 1)
+layout_mode = 0
+offset_left = -192.0
+offset_right = -128.0
+offset_bottom = 64.0
+texture = ExtResource("5_wugxt")
+expand_mode = 1
+
+[node name="body 4" type="TextureRect" parent="draw display/player 1" unique_id=1806936942]
+modulate = Color(0.25490198, 0.4117647, 0.88235295, 1)
+layout_mode = 0
+offset_left = -255.66667
+offset_top = -1.013279e-05
+offset_right = -191.66667
+offset_bottom = 63.999985
+texture = ExtResource("5_wugxt")
+expand_mode = 1
+
+[node name="apple" type="TextureRect" parent="draw display" unique_id=126550708]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 940.0
+offset_top = 472.00003
+offset_right = 1004.0
+offset_bottom = 546.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("4_43ogv")
+
+[node name="player 2" type="Control" parent="draw display" unique_id=2049134617]
+anchors_preset = 0
+offset_left = 1472.0
+offset_top = 640.0
+offset_right = 1512.0
+offset_bottom = 680.0
+scale = Vector2(-3, -3)
+
+[node name="head" type="TextureRect" parent="draw display/player 2" unique_id=1216187970]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("5_wugxt")
+expand_mode = 1
+
+[node name="left eye" type="TextureRect" parent="draw display/player 2/head" unique_id=1197283404]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+offset_left = 49.0
+offset_right = 64.0
+offset_bottom = 15.0
+texture = ExtResource("5_wugxt")
+expand_mode = 1
+
+[node name="right eye" type="TextureRect" parent="draw display/player 2/head" unique_id=1002397327]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+offset_left = 49.0
+offset_top = 49.0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("5_wugxt")
+expand_mode = 1
+
+[node name="body 1" type="TextureRect" parent="draw display/player 2" unique_id=2026265776]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_left = -64.0
+offset_bottom = 64.0
+texture = ExtResource("5_wugxt")
+expand_mode = 1
+
+[node name="body 2" type="TextureRect" parent="draw display/player 2" unique_id=864665175]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_left = -128.0
+offset_right = -64.0
+offset_bottom = 64.0
+texture = ExtResource("5_wugxt")
+expand_mode = 1
+
+[node name="body 3" type="TextureRect" parent="draw display/player 2" unique_id=931042617]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_left = -192.0
+offset_right = -128.0
+offset_bottom = 64.0
+texture = ExtResource("5_wugxt")
+expand_mode = 1
+
+[node name="body 4" type="TextureRect" parent="draw display/player 2" unique_id=72687046]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_left = -255.66667
+offset_top = -1.013279e-05
+offset_right = -191.66667
+offset_bottom = 63.999985
+texture = ExtResource("5_wugxt")
+expand_mode = 1
