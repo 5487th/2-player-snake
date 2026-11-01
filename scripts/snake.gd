@@ -8,6 +8,8 @@ enum PlayerNumber {
 
 @export var player_number = PlayerNumber.PLAYER1
 
+@export var snake_movement:SnakeMovement
+
 @export var top_boundary:Node2D
 @export var bottom_boundary:Node2D
 @export var left_boundary:Node2D

@@ -5,8 +5,9 @@
 [ext_resource type="Script" uid="uid://wi67dikicp2w" path="res://scripts/snake_movement_manager.gd" id="2_l4b1q"]
 [ext_resource type="PackedScene" uid="uid://cplc8euq4tkis" path="res://scenes/snake_segment.tscn" id="4_l4b1q"]
 
-[node name="snake" type="Node2D" unique_id=36021643]
+[node name="snake" type="Node2D" unique_id=36021643 node_paths=PackedStringArray("snake_movement")]
 script = ExtResource("1_yc36x")
+snake_movement = NodePath("Head")
 
 [node name="Timer" type="Timer" parent="." unique_id=1932519511]
 wait_time = 0.05
@@ -22,6 +23,7 @@ segments = [NodePath("../segment"), NodePath("../segment2"), NodePath("../segmen
 
 [node name="visual" type="TextureRect" parent="Head" unique_id=823974945]
 modulate = Color(0.25490198, 0.4117647, 0.88235295, 1)
+z_index = 3
 offset_left = -32.0
 offset_top = -32.0
 offset_right = 32.0

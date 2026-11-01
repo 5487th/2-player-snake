@@ -8,9 +8,12 @@ class_name SnakeMovement
 
 @export var can_move:bool = true
 
+signal moved
+
 var movement_direction:Vector2 = Vector2.RIGHT
 var last_movement_direction:Vector2 = Vector2(0, 0) 
 var segment_scene:PackedScene = load("res://scenes/snake_segment.tscn")
+
 
 func _ready() -> void:
 	if snake.player_number==Snake.PlayerNumber.PLAYER1:
@@ -33,8 +36,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	movement_direction = get_movement_direction()
 	
-	if Input.is_action_just_pressed("ui_accept"):
-		add_segment()
+	
 
 func on_move():
 	if not can_move:
@@ -79,6 +81,8 @@ func on_move():
 			
 		Vector2.RIGHT:
 			global_rotation = deg_to_rad(0)
+	
+	moved.emit()
 	
 func get_movement_direction():
 	if snake.player_number == Snake.PlayerNumber.PLAYER1:

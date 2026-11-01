@@ -2,6 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://bcwhy811156gc" path="res://assets/tile.png" id="1_s3esy"]
 [ext_resource type="PackedScene" uid="uid://dbs45p62gdeva" path="res://scenes/snake.tscn" id="2_72e8q"]
+[ext_resource type="Script" uid="uid://b8n6eagcu655o" path="res://scripts/apple_spawner.gd" id="3_0rdsr"]
+[ext_resource type="Script" uid="uid://bvghho014cnuh" path="res://scripts/snake_interaction_manager.gd" id="3_d2op2"]
+[ext_resource type="PackedScene" uid="uid://dg63qhyl7f0cj" path="res://scenes/apple.tscn" id="4_ipu61"]
 
 [node name="main game" type="Node2D" unique_id=836188242]
 
@@ -32,7 +35,23 @@ position = Vector2(0, 512)
 [node name="right boundary" type="Node2D" parent="world boundary" unique_id=1823225464]
 position = Vector2(1920, 512)
 
-[node name="snake" parent="." unique_id=36021643 node_paths=PackedStringArray("top_boundary", "bottom_boundary", "left_boundary", "right_boundary") instance=ExtResource("2_72e8q")]
+[node name="snake interaction manager" type="Node2D" parent="." unique_id=1034348015 node_paths=PackedStringArray("snake1", "snake2", "apple_spawner")]
+script = ExtResource("3_d2op2")
+snake1 = NodePath("../snake1")
+snake2 = NodePath("../snake2")
+apple_spawner = NodePath("../apple spawner")
+
+[node name="apple spawner" type="Node2D" parent="." unique_id=1792753239 node_paths=PackedStringArray("top_boundary", "bottom_boundary", "left_boundary", "right_boundary", "snake_1", "snake_2")]
+script = ExtResource("3_0rdsr")
+top_boundary = NodePath("../world boundary/top boundary")
+bottom_boundary = NodePath("../world boundary/bottom boundary")
+left_boundary = NodePath("../world boundary/left boundary")
+right_boundary = NodePath("../world boundary/right boundary")
+apple_scene = ExtResource("4_ipu61")
+snake_1 = NodePath("../snake1")
+snake_2 = NodePath("../snake2")
+
+[node name="snake1" parent="." unique_id=36021643 node_paths=PackedStringArray("top_boundary", "bottom_boundary", "left_boundary", "right_boundary") instance=ExtResource("2_72e8q")]
 position = Vector2(640, 640)
 top_boundary = NodePath("../world boundary/top boundary")
 bottom_boundary = NodePath("../world boundary/bottom boundary")
@@ -41,9 +60,28 @@ right_boundary = NodePath("../world boundary/right boundary")
 
 [node name="snake2" parent="." unique_id=965643502 node_paths=PackedStringArray("top_boundary", "bottom_boundary", "left_boundary", "right_boundary") instance=ExtResource("2_72e8q")]
 position = Vector2(1280, 384)
-rotation = 3.1415927
 player_number = 1
 top_boundary = NodePath("../world boundary/top boundary")
 bottom_boundary = NodePath("../world boundary/bottom boundary")
 left_boundary = NodePath("../world boundary/left boundary")
 right_boundary = NodePath("../world boundary/right boundary")
+
+[node name="Head" parent="snake2" index="1" unique_id=2085655471]
+position = Vector2(-224, 32)
+
+[node name="visual" parent="snake2/Head" index="0" unique_id=823974945]
+metadata/_edit_use_anchors_ = true
+
+[node name="left eye" parent="snake2/Head/visual" index="0" unique_id=1494357735]
+metadata/_edit_use_anchors_ = true
+
+[node name="right eye" parent="snake2/Head/visual" index="1" unique_id=137969321]
+metadata/_edit_use_anchors_ = true
+
+[node name="segment" parent="snake2" index="2" unique_id=382759185]
+position = Vector2(-160, 32)
+
+[node name="segment3" parent="snake2" index="4" unique_id=959328648]
+position = Vector2(-32, 32)
+
+[editable path="snake2"]

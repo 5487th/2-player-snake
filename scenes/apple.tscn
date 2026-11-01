@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dg63qhyl7f0cj"]
+
+[ext_resource type="Texture2D" uid="uid://s03gxn7nia10" path="res://assets/apple.png" id="1_h071m"]
+
+[node name="apple" type="Node2D" unique_id=732619121]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=134655323]
+position = Vector2(0, -5)
+texture = ExtResource("1_h071m")
