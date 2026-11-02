@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://b5q4m0frjrqgy"]
 
 [ext_resource type="Script" uid="uid://cc8kbtb0sx332" path="res://scripts/replay_menu.gd" id="1_fgr7c"]
-[ext_resource type="Texture2D" uid="uid://bcwhy811156gc" path="res://assets/tile.png" id="2_ke0x7"]
-[ext_resource type="FontFile" uid="uid://ciwecc3fs8y8u" path="res://assets/Daydream DEMO.otf" id="3_roxso"]
-[ext_resource type="Texture2D" uid="uid://s03gxn7nia10" path="res://assets/apple.png" id="4_43ogv"]
-[ext_resource type="Texture2D" uid="uid://snrdff40dure" path="res://assets/white_square.png" id="5_wugxt"]
+[ext_resource type="Texture2D" uid="uid://st58iuc68ujj" path="res://assets/sprites/tile.png" id="2_fgr7c"]
+[ext_resource type="AudioStream" uid="uid://dv1qhw0b16ihq" path="res://assets/audio/end_audio WIN.mp3" id="2_ke0x7"]
+[ext_resource type="FontFile" uid="uid://bki5456lo0mih" path="res://assets/fonts/Daydream DEMO.otf" id="3_ke0x7"]
+[ext_resource type="AudioStream" uid="uid://l24sc7c2tid1" path="res://assets/audio/click.mp3" id="3_roxso"]
+[ext_resource type="Texture2D" uid="uid://cq7lsn75ryuiw" path="res://assets/sprites/apple.png" id="4_roxso"]
+[ext_resource type="Texture2D" uid="uid://b0nmq8n0n20yk" path="res://assets/sprites/white_square.png" id="5_43ogv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rgl7y"]
 bg_color = Color(1, 0, 0, 1)
@@ -16,15 +18,79 @@ bg_color = Color(1, 0, 0, 1)
 bg_color = Color(0.8864554, 0, 0.0133170085, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_rgl7y"]
-font = ExtResource("3_roxso")
+font = ExtResource("3_ke0x7")
 font_size = 96
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=1703937666 node_paths=PackedStringArray("player_1_wins_display", "player_2_wins_display", "draw_display", "replay_button")]
+[sub_resource type="Animation" id="Animation_70vka"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nqdth"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2l77h"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_roxso"]
+_data = {
+&"RESET": SubResource("Animation_70vka"),
+&"fade_in": SubResource("Animation_nqdth"),
+&"fade_out": SubResource("Animation_2l77h")
+}
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1703937666 node_paths=PackedStringArray("player_1_wins_display", "player_2_wins_display", "draw_display", "transition_animation_player", "replay_button", "click_sound_player")]
 script = ExtResource("1_fgr7c")
 player_1_wins_display = NodePath("player 1 wins display")
 player_2_wins_display = NodePath("player 2 wins display")
 draw_display = NodePath("draw display")
+transition_animation_player = NodePath("transition/AnimationPlayer")
 replay_button = NodePath("play again")
+click_sound_player = NodePath("click sound player")
+
+[node name="win sound player" type="AudioStreamPlayer2D" parent="." unique_id=202389575]
+stream = ExtResource("2_ke0x7")
+autoplay = true
+
+[node name="click sound player" type="AudioStreamPlayer2D" parent="." unique_id=584451921]
+stream = ExtResource("3_roxso")
+volume_db = 24.0
 
 [node name="background" type="TextureRect" parent="." unique_id=1505957438]
 z_index = -2
@@ -33,7 +99,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_ke0x7")
+texture = ExtResource("2_fgr7c")
 stretch_mode = 1
 
 [node name="play again" type="Button" parent="." unique_id=708245285]
@@ -41,7 +107,7 @@ offset_left = 1280.0
 offset_top = 832.0
 offset_right = 1805.0
 offset_bottom = 960.0
-theme_override_fonts/font = ExtResource("3_roxso")
+theme_override_fonts/font = ExtResource("3_ke0x7")
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_rgl7y")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_sugp2")
@@ -51,20 +117,16 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="player 1 wins display" type="Control" parent="." unique_id=1392570678]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="winnder display" type="Label" parent="player 1 wins display" unique_id=2021101776]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 374.0
+layout_mode = 0
+offset_left = 394.0
 offset_top = 114.0
-offset_right = 1490.0
+offset_right = 1420.0
 offset_bottom = 270.0
 grow_horizontal = 2
 text = "Snake 1 wins"
@@ -86,7 +148,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(3, 3)
 pivot_offset_ratio = Vector2(0.5, 0.5)
-texture = ExtResource("4_43ogv")
+texture = ExtResource("4_roxso")
 
 [node name="player 1" type="Control" parent="player 1 wins display" unique_id=1226043699]
 anchors_preset = 0
@@ -101,7 +163,7 @@ modulate = Color(0.25490198, 0.4117647, 0.88235295, 1)
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="left eye" type="TextureRect" parent="player 1 wins display/player 1/head" unique_id=1333392623]
@@ -110,7 +172,7 @@ layout_mode = 1
 offset_left = 49.0
 offset_right = 64.0
 offset_bottom = 15.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="right eye" type="TextureRect" parent="player 1 wins display/player 1/head" unique_id=844015305]
@@ -120,7 +182,7 @@ offset_left = 49.0
 offset_top = 49.0
 offset_right = 64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 1" type="TextureRect" parent="player 1 wins display/player 1" unique_id=670501145]
@@ -128,7 +190,7 @@ modulate = Color(0.25490198, 0.4117647, 0.88235295, 1)
 layout_mode = 0
 offset_left = -64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 2" type="TextureRect" parent="player 1 wins display/player 1" unique_id=25558819]
@@ -137,7 +199,7 @@ layout_mode = 0
 offset_left = -128.0
 offset_right = -64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 3" type="TextureRect" parent="player 1 wins display/player 1" unique_id=493721277]
@@ -146,7 +208,7 @@ layout_mode = 0
 offset_left = -192.0
 offset_right = -128.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 4" type="TextureRect" parent="player 1 wins display/player 1" unique_id=450821140]
@@ -156,10 +218,11 @@ offset_left = -255.66667
 offset_top = -1.013279e-05
 offset_right = -191.66667
 offset_bottom = 63.999985
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="player 2 wins display" type="Control" parent="." unique_id=672270260]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -192,7 +255,7 @@ modulate = Color(1, 0, 0, 1)
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="left eye" type="TextureRect" parent="player 2 wins display/player 1/head" unique_id=775658239]
@@ -201,7 +264,7 @@ layout_mode = 1
 offset_left = 49.0
 offset_right = 64.0
 offset_bottom = 15.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="right eye" type="TextureRect" parent="player 2 wins display/player 1/head" unique_id=201181191]
@@ -211,7 +274,7 @@ offset_left = 49.0
 offset_top = 49.0
 offset_right = 64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 1" type="TextureRect" parent="player 2 wins display/player 1" unique_id=1790020588]
@@ -219,7 +282,7 @@ modulate = Color(1, 0, 0, 1)
 layout_mode = 0
 offset_left = -64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 2" type="TextureRect" parent="player 2 wins display/player 1" unique_id=619963745]
@@ -228,7 +291,7 @@ layout_mode = 0
 offset_left = -128.0
 offset_right = -64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 3" type="TextureRect" parent="player 2 wins display/player 1" unique_id=2071770253]
@@ -237,7 +300,7 @@ layout_mode = 0
 offset_left = -192.0
 offset_right = -128.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 4" type="TextureRect" parent="player 2 wins display/player 1" unique_id=1599265726]
@@ -247,7 +310,7 @@ offset_left = -255.66667
 offset_top = -1.013279e-05
 offset_right = -191.66667
 offset_bottom = 63.999985
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="apple" type="TextureRect" parent="player 2 wins display" unique_id=879994761]
@@ -265,7 +328,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(3, 3)
 pivot_offset_ratio = Vector2(0.5, 0.5)
-texture = ExtResource("4_43ogv")
+texture = ExtResource("4_roxso")
 
 [node name="draw display" type="Control" parent="." unique_id=38462224]
 visible = false
@@ -301,7 +364,7 @@ modulate = Color(0.25490198, 0.4117647, 0.88235295, 1)
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="left eye" type="TextureRect" parent="draw display/player 1/head" unique_id=730212774]
@@ -310,7 +373,7 @@ layout_mode = 1
 offset_left = 49.0
 offset_right = 64.0
 offset_bottom = 15.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="right eye" type="TextureRect" parent="draw display/player 1/head" unique_id=729294990]
@@ -320,7 +383,7 @@ offset_left = 49.0
 offset_top = 49.0
 offset_right = 64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 1" type="TextureRect" parent="draw display/player 1" unique_id=239325837]
@@ -328,7 +391,7 @@ modulate = Color(0.25490198, 0.4117647, 0.88235295, 1)
 layout_mode = 0
 offset_left = -64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 2" type="TextureRect" parent="draw display/player 1" unique_id=1883035825]
@@ -337,7 +400,7 @@ layout_mode = 0
 offset_left = -128.0
 offset_right = -64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 3" type="TextureRect" parent="draw display/player 1" unique_id=308415984]
@@ -346,7 +409,7 @@ layout_mode = 0
 offset_left = -192.0
 offset_right = -128.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 4" type="TextureRect" parent="draw display/player 1" unique_id=1806936942]
@@ -356,7 +419,7 @@ offset_left = -255.66667
 offset_top = -1.013279e-05
 offset_right = -191.66667
 offset_bottom = 63.999985
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="apple" type="TextureRect" parent="draw display" unique_id=126550708]
@@ -374,7 +437,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(3, 3)
 pivot_offset_ratio = Vector2(0.5, 0.5)
-texture = ExtResource("4_43ogv")
+texture = ExtResource("4_roxso")
 
 [node name="player 2" type="Control" parent="draw display" unique_id=2049134617]
 anchors_preset = 0
@@ -389,7 +452,7 @@ modulate = Color(1, 0, 0, 1)
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="left eye" type="TextureRect" parent="draw display/player 2/head" unique_id=1197283404]
@@ -398,7 +461,7 @@ layout_mode = 1
 offset_left = 49.0
 offset_right = 64.0
 offset_bottom = 15.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="right eye" type="TextureRect" parent="draw display/player 2/head" unique_id=1002397327]
@@ -408,7 +471,7 @@ offset_left = 49.0
 offset_top = 49.0
 offset_right = 64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 1" type="TextureRect" parent="draw display/player 2" unique_id=2026265776]
@@ -416,7 +479,7 @@ modulate = Color(1, 0, 0, 1)
 layout_mode = 0
 offset_left = -64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 2" type="TextureRect" parent="draw display/player 2" unique_id=864665175]
@@ -425,7 +488,7 @@ layout_mode = 0
 offset_left = -128.0
 offset_right = -64.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 3" type="TextureRect" parent="draw display/player 2" unique_id=931042617]
@@ -434,7 +497,7 @@ layout_mode = 0
 offset_left = -192.0
 offset_right = -128.0
 offset_bottom = 64.0
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
 
 [node name="body 4" type="TextureRect" parent="draw display/player 2" unique_id=72687046]
@@ -444,5 +507,20 @@ offset_left = -255.66667
 offset_top = -1.013279e-05
 offset_right = -191.66667
 offset_bottom = 63.999985
-texture = ExtResource("5_wugxt")
+texture = ExtResource("5_43ogv")
 expand_mode = 1
+
+[node name="transition" type="ColorRect" parent="." unique_id=1305911511]
+visible = false
+z_index = 4
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="transition" unique_id=793968274]
+libraries/ = SubResource("AnimationLibrary_roxso")
+autoplay = &"fade_out"

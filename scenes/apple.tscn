@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dg63qhyl7f0cj"]
 
-[ext_resource type="Texture2D" uid="uid://s03gxn7nia10" path="res://assets/apple.png" id="1_h071m"]
+[ext_resource type="Texture2D" uid="uid://cq7lsn75ryuiw" path="res://assets/sprites/apple.png" id="1_h071m"]
 
 [node name="apple" type="Node2D" unique_id=732619121]
 

@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="2-player-snake"
+config/name="snake arena"
+config/description="2 player snake is a fast-paced multiplayer arcade game where two players compete to grow the longest snake while navigating a shared arena. Collect food to increase your size, outmaneuver your opponent, and avoid collisions with your own tail, and the rival snake."
 run/main_scene="uid://cjsf727dnfrc5"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://cq7lsn75ryuiw"
 
 [autoload]
 

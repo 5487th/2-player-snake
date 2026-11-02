@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cypsskrk65l4v"
+path="res://.godot/imported/game_audio.7 EAT.mp3-2ca5791d5da884a897b14d37600b2544.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/game_audio.7 EAT.mp3"
+dest_files=["res://.godot/imported/game_audio.7 EAT.mp3-2ca5791d5da884a897b14d37600b2544.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

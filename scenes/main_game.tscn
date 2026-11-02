@@ -1,25 +1,112 @@
 [gd_scene format=3 uid="uid://kq5eje74r5bi"]
 
-[ext_resource type="Texture2D" uid="uid://bcwhy811156gc" path="res://assets/tile.png" id="1_s3esy"]
+[ext_resource type="Texture2D" uid="uid://st58iuc68ujj" path="res://assets/sprites/tile.png" id="1_ipu61"]
+[ext_resource type="FontFile" uid="uid://bki5456lo0mih" path="res://assets/fonts/Daydream DEMO.otf" id="2_2l77h"]
 [ext_resource type="PackedScene" uid="uid://dbs45p62gdeva" path="res://scenes/snake.tscn" id="2_72e8q"]
 [ext_resource type="Script" uid="uid://b8n6eagcu655o" path="res://scripts/apple_spawner.gd" id="3_0rdsr"]
 [ext_resource type="Script" uid="uid://bvghho014cnuh" path="res://scripts/snake_interaction_manager.gd" id="3_d2op2"]
 [ext_resource type="PackedScene" uid="uid://dg63qhyl7f0cj" path="res://scenes/apple.tscn" id="4_ipu61"]
+[ext_resource type="Script" uid="uid://bd05v0jcchblg" path="res://scripts/sound_manager_main_game.gd" id="5_70vka"]
+[ext_resource type="AudioStream" uid="uid://bk82g7q0kc3j2" path="res://assets/audio/end_audio DEATH.mp3" id="6_2l77h"]
+[ext_resource type="AudioStream" uid="uid://cypsskrk65l4v" path="res://assets/audio/game_audio.7 EAT.mp3" id="7_nqdth"]
+
+[sub_resource type="Animation" id="Animation_70vka"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nqdth"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2l77h"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nqdth"]
+_data = {
+&"RESET": SubResource("Animation_70vka"),
+&"fade_in": SubResource("Animation_nqdth"),
+&"fade_out": SubResource("Animation_2l77h")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_rgl7y"]
+font = ExtResource("2_2l77h")
+font_size = 64
 
 [node name="main game" type="Node2D" unique_id=836188242]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=558591453]
+[node name="background" type="CanvasLayer" parent="." unique_id=558591453]
 layer = -1
 
-[node name="background" type="TextureRect" parent="CanvasLayer" unique_id=1842724923]
+[node name="background" type="TextureRect" parent="background" unique_id=1842724923]
 z_index = -2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_s3esy")
+texture = ExtResource("1_ipu61")
 stretch_mode = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=31037580]
+
+[node name="transition" type="ColorRect" parent="CanvasLayer" unique_id=1310842854]
+z_index = 4
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/transition" unique_id=241090232]
+libraries/ = SubResource("AnimationLibrary_nqdth")
+autoplay = &"fade_out"
+
+[node name="start label" type="Label" parent="CanvasLayer" unique_id=1681874544]
+offset_left = 161.0
+offset_top = 148.0
+offset_right = 1079.0
+offset_bottom = 359.0
+text = "press anything 
+        to start"
+label_settings = SubResource("LabelSettings_rgl7y")
 
 [node name="world boundary" type="Node2D" parent="." unique_id=56874069]
 
@@ -35,11 +122,13 @@ position = Vector2(0, 512)
 [node name="right boundary" type="Node2D" parent="world boundary" unique_id=1823225464]
 position = Vector2(1920, 512)
 
-[node name="snake interaction manager" type="Node2D" parent="." unique_id=1034348015 node_paths=PackedStringArray("snake1", "snake2", "apple_spawner")]
+[node name="snake interaction manager" type="Node2D" parent="." unique_id=1034348015 node_paths=PackedStringArray("snake1", "snake2", "apple_spawner", "transition_animation_player", "start_label")]
 script = ExtResource("3_d2op2")
 snake1 = NodePath("../snake1")
 snake2 = NodePath("../snake2")
 apple_spawner = NodePath("../apple spawner")
+transition_animation_player = NodePath("../CanvasLayer/transition/AnimationPlayer")
+start_label = NodePath("../CanvasLayer/start label")
 
 [node name="apple spawner" type="Node2D" parent="." unique_id=1792753239 node_paths=PackedStringArray("top_boundary", "bottom_boundary", "left_boundary", "right_boundary", "snake_1", "snake_2")]
 script = ExtResource("3_0rdsr")
@@ -51,6 +140,18 @@ apple_scene = ExtResource("4_ipu61")
 snake_1 = NodePath("../snake1")
 snake_2 = NodePath("../snake2")
 
+[node name="sound manager" type="Node2D" parent="." unique_id=1000321684 node_paths=PackedStringArray("snake_interaction_manager", "death_sound_player", "eat_sound_player")]
+script = ExtResource("5_70vka")
+snake_interaction_manager = NodePath("../snake interaction manager")
+death_sound_player = NodePath("death")
+eat_sound_player = NodePath("eat")
+
+[node name="death" type="AudioStreamPlayer2D" parent="sound manager" unique_id=936963527]
+stream = ExtResource("6_2l77h")
+
+[node name="eat" type="AudioStreamPlayer2D" parent="sound manager" unique_id=224314401]
+stream = ExtResource("7_nqdth")
+
 [node name="snake1" parent="." unique_id=36021643 node_paths=PackedStringArray("top_boundary", "bottom_boundary", "left_boundary", "right_boundary") instance=ExtResource("2_72e8q")]
 position = Vector2(640, 640)
 top_boundary = NodePath("../world boundary/top boundary")
@@ -59,7 +160,7 @@ left_boundary = NodePath("../world boundary/left boundary")
 right_boundary = NodePath("../world boundary/right boundary")
 
 [node name="snake2" parent="." unique_id=965643502 node_paths=PackedStringArray("top_boundary", "bottom_boundary", "left_boundary", "right_boundary") instance=ExtResource("2_72e8q")]
-position = Vector2(1280, 384)
+position = Vector2(1472, 384)
 player_number = 1
 top_boundary = NodePath("../world boundary/top boundary")
 bottom_boundary = NodePath("../world boundary/bottom boundary")

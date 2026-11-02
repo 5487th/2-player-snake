@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ckf5oiewgtwqg"
+path="res://.godot/imported/game_audio.7 UP.mp3-2adf190bf3ddd2d49f58dd53fba2ebeb.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/game_audio.7 UP.mp3"
+dest_files=["res://.godot/imported/game_audio.7 UP.mp3-2adf190bf3ddd2d49f58dd53fba2ebeb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

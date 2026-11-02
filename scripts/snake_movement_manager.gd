@@ -100,13 +100,13 @@ func get_movement_direction():
 			return movement_direction
 	
 	elif snake.player_number == snake.PlayerNumber.PLAYER2:
-		if Input.is_action_just_pressed("up_2") and movement_direction != Vector2.DOWN: 
+		if Input.is_action_just_pressed("up_2") and last_movement_direction != Vector2.DOWN: 
 			return Vector2.UP
-		elif Input.is_action_just_pressed("down_2") and movement_direction != Vector2.UP:
+		elif Input.is_action_just_pressed("down_2") and last_movement_direction != Vector2.UP:
 			return Vector2.DOWN
-		elif Input.is_action_just_pressed("left_2") and movement_direction != Vector2.RIGHT:
+		elif Input.is_action_just_pressed("left_2") and last_movement_direction != Vector2.RIGHT:
 			return Vector2.LEFT
-		elif Input.is_action_just_pressed("right_2") and movement_direction != Vector2.LEFT: 
+		elif Input.is_action_just_pressed("right_2") and last_movement_direction != Vector2.LEFT: 
 			return Vector2.RIGHT
 		else:
 			return movement_direction

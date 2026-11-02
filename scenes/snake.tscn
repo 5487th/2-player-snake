@@ -1,9 +1,14 @@
 [gd_scene format=3 uid="uid://dbs45p62gdeva"]
 
-[ext_resource type="Texture2D" uid="uid://snrdff40dure" path="res://assets/white_square.png" id="1_a5f6l"]
 [ext_resource type="Script" uid="uid://ibju5tpuxcvm" path="res://scripts/snake.gd" id="1_yc36x"]
 [ext_resource type="Script" uid="uid://wi67dikicp2w" path="res://scripts/snake_movement_manager.gd" id="2_l4b1q"]
+[ext_resource type="Texture2D" uid="uid://b0nmq8n0n20yk" path="res://assets/sprites/white_square.png" id="3_l4b1q"]
 [ext_resource type="PackedScene" uid="uid://cplc8euq4tkis" path="res://scenes/snake_segment.tscn" id="4_l4b1q"]
+[ext_resource type="Script" uid="uid://br6y5r0wan1ou" path="res://scripts/snake_sound_manager.gd" id="5_10gix"]
+[ext_resource type="AudioStream" uid="uid://ckf5oiewgtwqg" path="res://assets/audio/game_audio.7 UP.mp3" id="6_uotcb"]
+[ext_resource type="AudioStream" uid="uid://bwpriq86eof7p" path="res://assets/audio/game_audio.7 DOWN.mp3" id="7_21w4a"]
+[ext_resource type="AudioStream" uid="uid://vknlvh2tyo8s" path="res://assets/audio/game_audio.7 LEFT.mp3" id="8_l1qxe"]
+[ext_resource type="AudioStream" uid="uid://cly5cijsskwmd" path="res://assets/audio/game_audio.7 RIGHT.mp3" id="9_px58k"]
 
 [node name="snake" type="Node2D" unique_id=36021643 node_paths=PackedStringArray("snake_movement")]
 script = ExtResource("1_yc36x")
@@ -29,7 +34,7 @@ offset_top = -32.0
 offset_right = 32.0
 offset_bottom = 32.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
-texture = ExtResource("1_a5f6l")
+texture = ExtResource("3_l4b1q")
 expand_mode = 1
 
 [node name="left eye" type="TextureRect" parent="Head/visual" unique_id=1494357735]
@@ -38,7 +43,7 @@ layout_mode = 1
 offset_left = 49.0
 offset_right = 64.0
 offset_bottom = 15.0
-texture = ExtResource("1_a5f6l")
+texture = ExtResource("3_l4b1q")
 expand_mode = 1
 
 [node name="right eye" type="TextureRect" parent="Head/visual" unique_id=137969321]
@@ -48,7 +53,7 @@ offset_left = 49.0
 offset_top = 49.0
 offset_right = 64.0
 offset_bottom = 64.0
-texture = ExtResource("1_a5f6l")
+texture = ExtResource("3_l4b1q")
 expand_mode = 1
 
 [node name="segment" parent="." unique_id=382759185 instance=ExtResource("4_l4b1q")]
@@ -59,3 +64,24 @@ position = Vector2(-96, 32)
 
 [node name="segment3" parent="." unique_id=959328648 instance=ExtResource("4_l4b1q")]
 position = Vector2(-160, 32)
+
+[node name="sound_manager" type="Node2D" parent="." unique_id=1975691953 node_paths=PackedStringArray("snake_movement", "snake", "up_sound_player", "down_sound_player", "left_sound_player", "right_sound_player")]
+script = ExtResource("5_10gix")
+snake_movement = NodePath("../Head")
+snake = NodePath("..")
+up_sound_player = NodePath("up")
+down_sound_player = NodePath("down")
+left_sound_player = NodePath("left")
+right_sound_player = NodePath("right")
+
+[node name="up" type="AudioStreamPlayer2D" parent="sound_manager" unique_id=63813353]
+stream = ExtResource("6_uotcb")
+
+[node name="down" type="AudioStreamPlayer2D" parent="sound_manager" unique_id=2027165536]
+stream = ExtResource("7_21w4a")
+
+[node name="left" type="AudioStreamPlayer2D" parent="sound_manager" unique_id=621520618]
+stream = ExtResource("8_l1qxe")
+
+[node name="right" type="AudioStreamPlayer2D" parent="sound_manager" unique_id=1005787236]
+stream = ExtResource("9_px58k")
